@@ -51,3 +51,13 @@ Completar responsable, correo, ciudad, URL Apps Script, comunidad y redes. Revis
 ## Actualización de registro
 
 Responsable diligenciado con los datos facilitados por el propietario. Pregunta de comunidad con Sí/No obligatorio, sin selección inicial y acceso igual para ambas respuestas. 89 pruebas pasan, incluida validación de respuesta vacía. Hoja nativa de Google Sheets creada e inspeccionada por API: `Leads!A1:O2`, quince encabezados, sin registros personales, filtro y primera fila fija, región Colombia y zona America/Bogota. Se revisó visualmente el XLSX previo a importar; el navegador solicitó acceso a Google y no permitió inspección visual nativa. No se ha desplegado Apps Script ni probado recepción de filas reales.
+
+## Integración activa verificada · 4 de noviembre de 2026
+
+- Receptor `/exec` publicado por el propietario y acceso anónimo comprobado (HTTP 200, JSON sin pantalla de inicio de sesión). Sitio publicado mediante GitHub Actions con `leadCaptureEnabled: true`.
+- Prueba HTTP sintética con comunidad Sí: POST aceptado y acuse JSONP `received: true`. Repetir el mismo UUID devolvió éxito sin duplicar la fila. Honeypot no vacío rechazado y UUID inexistente en la consulta de estado.
+- Prueba completa desde `https://metodotrujillo.github.io/#/acceso`: datos sintéticos, validación de respuesta Sí/No vacía, selección No, envío, acuse visible «Registro recibido» y acceso a la calculadora Horas de trabajo.
+- Se corrigió una invocación de `fetch` con contexto incorrecto detectada en esa prueba. Una prueba de regresión simula el comportamiento nativo del navegador; pasan **90 pruebas**.
+- La cola de sesión conservó el registro pendiente durante la corrección y lo envió después de recargar. No fue necesario volver a introducir los datos.
+- Lectura por la interfaz autenticada de Google Sheets en la cuenta personal: `Leads!A2:O4`. Exactamente una fila de prueba Sí y una No, ambas con autorización, versión `2026-11-04.v3` y fecha/hora de respuesta. La fila Sí tiene UUID `21dea92d-d10d-4527-a4b0-0775dff0d707` y la No `45289341-18a0-4111-80da-0eb76dbf69f3`.
+- Las filas se dejaron identificadas como `PRUEBA TECNICA - NO CONTACTAR`, con direcciones `example.invalid`. No son personas reales ni destinatarios de comunicaciones. No se ha enviado ningún correo o mensaje de WhatsApp.

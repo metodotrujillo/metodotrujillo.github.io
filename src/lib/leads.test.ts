@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { attributionFrom, submitLead, validateContact, type Lead } from './leads';
 import { site } from '../config/site';
-afterEach(()=>vi.restoreAllMocks());
+afterEach(()=>{vi.restoreAllMocks();vi.unstubAllGlobals();});
 describe('validación de contacto',()=>{
   it('acepta datos colombianos completos',()=>expect(Object.values(validateContact('Ana','ana@example.com','3001234567',true,'no')).every(v=>v==='')).toBe(true));
   it.each(['','123','2001234567','30012345678','+573001234567'])('rechaza teléfono %s',phone=>expect(validateContact('Ana','ana@example.com',phone,true).whatsapp).not.toBe(''));
@@ -22,5 +22,14 @@ describe('confirmación de registro',()=>{
   const lead:Lead={id:'dc153291-4e8c-4ba1-b2b3-514c7c1c6091',name:'Prueba',email:'prueba@example.com',whatsapp:'+573001234567',consent:'si',communityInterest:'no',policyVersion:site.policyVersion,consentedAt:'2026-11-04T15:00:00Z',startedAt:1000,submittedAt:5000,website:'',attribution:attributionFrom('?src=ig','#/cdt')};
   it('no considera respuesta opaca como recepción confirmada',async()=>{vi.spyOn(site,'appsScriptUrl','get').mockReturnValue('https://script.google.com/macros/s/test/exec');const transport={post:vi.fn().mockResolvedValue({type:'opaque'}),confirm:vi.fn().mockResolvedValue(false)};await expect(submitLead(lead,transport)).rejects.toThrow('no confirmó');expect(transport.confirm).toHaveBeenCalledWith(lead.id);});
   it.each(['si','no'] as const)('envía la preferencia de comunidad %s sin alterar el acceso',async preference=>{vi.spyOn(site,'appsScriptUrl','get').mockReturnValue('https://script.google.com/macros/s/test/exec');const post=vi.fn().mockResolvedValue({});await submitLead({...lead,communityInterest:preference},{post,confirm:vi.fn().mockResolvedValue(true)});const body=(post.mock.calls[0][1] as RequestInit).body as URLSearchParams;expect(body.get('communityInterest')).toBe(preference);expect(body.get('consent')).toBe('si');});
+  it('el transporte por defecto conserva el contexto válido de fetch en navegador',async()=>{
+    vi.spyOn(site,'appsScriptUrl','get').mockReturnValue('https://script.google.com/macros/s/test/exec');
+    const callbacks:Record<string,unknown>={};
+    vi.stubGlobal('window',callbacks);
+    vi.stubGlobal('document',{createElement:()=>({src:'',remove:vi.fn()}),head:{append:(script:{src:string})=>{const name=new URL(script.src).searchParams.get('callback')!;queueMicrotask(()=>{(callbacks[name] as (r:{received:boolean})=>void)({received:true});});}}});
+    const nativeLikeFetch=vi.fn(function(this:unknown){if(this!==undefined&&this!==globalThis)throw new TypeError('Illegal invocation');return Promise.resolve({});});
+    vi.stubGlobal('fetch',nativeLikeFetch);
+    await expect(submitLead(lead)).resolves.toBeUndefined();expect(nativeLikeFetch).toHaveBeenCalledOnce();
+  });
   it('solo confirma éxito después del acuse',async()=>{vi.spyOn(site,'appsScriptUrl','get').mockReturnValue('https://script.google.com/macros/s/test/exec');await expect(submitLead(lead,{post:vi.fn().mockResolvedValue({}),confirm:vi.fn().mockResolvedValue(true)})).resolves.toBeUndefined();});
 });

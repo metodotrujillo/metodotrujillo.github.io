@@ -4,7 +4,7 @@ La hoja ya está creada, es privada y contiene la pestaña `Leads` con sus quinc
 
 [Abre la hoja de registros](https://docs.google.com/spreadsheets/d/1WGtI5Q_5fa1wenhkwF2z4BYioEnv6AZhkV8RFYlD1xk/edit)
 
-El formulario ya tiene el responsable Edwin Velaquez, Medellín, y el correo facilitado por el propietario. Está pendiente desplegar la aplicación web en su cuenta y pegar su URL en la configuración. **La hoja creada todavía no recibe registros de la web.**
+El formulario ya tiene el responsable Edwin Velaquez, Medellín, y el correo facilitado por el propietario. **La conexión está activa y probada en producción.** La URL `/exec` ya está configurada en `src/config/site.ts`. La hoja recibió las pruebas Sí/No, con fecha y versión de autorización. Los pasos siguientes se conservan para mantenimiento o para volver a implementar el receptor; no es necesario repetirlos ahora.
 
 ## Pasos del propietario en Google
 

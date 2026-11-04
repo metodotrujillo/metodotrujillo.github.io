@@ -34,9 +34,9 @@ En `src/config/site.ts`:
 | `url` | URL de producción si cambia repositorio o dominio |
 | `analytics` | Plausible opcional. Apagado por defecto. Configura dominio y URL de script de tu instalación |
 
-**Estado de entrega:** responsable diligenciado; hoja privada creada. Falta la URL de Apps Script y su autorización en Google; el enlace de comunidad y las redes siguen pendientes. El formulario está construido, pero sus campos no recogen datos mientras falta configuración. El registro es obligatorio para abrir las calculadoras, incluso entrando por enlace directo. No se permite saltarlo mediante un botón de prueba. Hasta completar la integración el registro está inhabilitado. Tras registrar los datos, el acceso se guarda en localStorage. El desbloqueo es una comodidad del navegador, no autenticación ni un control de seguridad.
+**Estado actual:** captura activa y verificada en producción desde el 4 de noviembre de 2026. El formulario envía los registros a la hoja privada de la cuenta personal del responsable mediante su aplicación web de Apps Script. Los enlaces de comunidad y redes siguen sin configurar; no se requieren para el registro.
 
-La hoja destino ya está creada en Google Drive. La captura completa se configura siguiendo [docs/APPS-SCRIPT.md](docs/APPS-SCRIPT.md). El código está en [docs/apps-script.gs](docs/apps-script.gs). No se ha enviado un registro real. La hoja ya existe; falta implementar Apps Script desde la cuenta del propietario. La confirmación real de fila y el enlace de comunidad deben verificarse al conectar tus URLs.
+El registro es obligatorio para abrir las calculadoras. Tras completar el formulario se recuerda el acceso en `localStorage`, incluso si un envío necesita reintentarse. Es una comodidad del navegador, no autenticación. La documentación de configuración y mantenimiento está en [docs/APPS-SCRIPT.md](docs/APPS-SCRIPT.md), y el código receptor en [docs/apps-script.gs](docs/apps-script.gs).
 
 ## Cifras y fórmulas
 
@@ -88,15 +88,15 @@ Cada push a `main` ejecuta `.github/workflows/deploy.yml`: instalación, pruebas
 
 Las fases tienen commits independientes. [docs/PLAN.md](docs/PLAN.md) contiene el plan original. Los siguientes cambios de configuración se publican con commit y push.
 
-## Revisión antes de activar registros
+## Mantenimiento del registro
 
-Completar responsable y URLs; revisar el texto marcado `REVISAR CON ABOGADO`; desplegar y probar Apps Script con datos propios de prueba; comprobar recepción de consentimiento, atribución y deduplicación; comprobar el botón de comunidad y atención de solicitudes. La captura queda apagada hasta entonces.
+La integración está activa. Al cambiar el texto de autorización, revisa la política y actualiza su versión tanto en el sitio como en Apps Script. Mantén el canal de atención de derechos y revisa la conservación de datos. El enlace de comunidad se configura cuando exista. El comentario `REVISAR CON ABOGADO` identifica el texto jurídico para su revisión.
 
 ## Registro y comunidad (actualización)
 
 Nombre, correo y celular obligatorios; autorización de datos de acceso y pregunta de comunidad independientes. La pregunta exige Sí o No sin preselección. Ambas respuestas dan acceso y se guardan con fecha, hora y versión `2026-11-04.v3`. El Sí autoriza contacto educativo e invitar/agregar a la futura comunidad; No no autoriza ese uso. El formulario no agrega ahora a grupos.
 
-Hoja nueva creada desde cero en el navegador de la cuenta personal verificada: `1WGtI5Q_5fa1wenhkwF2z4BYioEnv6AZhkV8RFYlD1xk`. No hay registros reales ni integración activa todavía. Sigue `docs/APPS-SCRIPT.md` para desplegar el receptor desde tu cuenta y entregar su URL `/exec`.
+Hoja nueva creada desde cero en el navegador de la cuenta personal verificada: `1WGtI5Q_5fa1wenhkwF2z4BYioEnv6AZhkV8RFYlD1xk`. La integración está activa. Se verificaron dos filas sintéticas, marcadas `PRUEBA TECNICA - NO CONTACTAR`, con respuestas Sí y No; no representan autorizaciones de personas reales. Sigue `docs/APPS-SCRIPT.md` para mantener o actualizar el receptor.
 
 ## Dirección de la organización
 
@@ -104,4 +104,4 @@ Repositorio trasladado a `metodotrujillo/metodotrujillo.github.io` para publicar
 
 El acceso de demostración anterior (`trujillo.access.v1`) no se acepta como registro. El acceso actual usa `trujillo.registered-access.v2`. La entrega de registros se reintenta si falla la conexión, sin volver a bloquear a alguien que ya completó el formulario.
 
-Proyecto de Apps Script creado desde cero con la cuenta personal verificada en el navegador: `Trujillo · Registro personal Edwin` (`1EJRZi36BQlJz5O_VtNUAegwe-1UUJIG6JcDZiWqLRiOGsp5ykGajIInH`). El código está guardado en ese editor y apunta a la hoja nueva. No se utilizan las hojas ni los proyectos de la conexión de Drive de Trujillo. La autorización y el despliegue de la aplicación web siguen pendientes hasta confirmación desde Google.
+Proyecto de Apps Script creado desde cero con la cuenta personal verificada en el navegador: `Trujillo · Registro personal Edwin` (`1EJRZi36BQlJz5O_VtNUAegwe-1UUJIG6JcDZiWqLRiOGsp5ykGajIInH`). El código está guardado en ese editor y apunta a la hoja nueva. No se utilizan las hojas ni los proyectos de la conexión de Drive de Trujillo. La aplicación web fue autorizada y desplegada por el propietario, conectada a producción y verificada mediante envío desde el formulario y confirmación de filas.
