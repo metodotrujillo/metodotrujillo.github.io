@@ -37,7 +37,7 @@ export function confirmReceipt(id:string):Promise<boolean>{
     const url=new URL(site.appsScriptUrl);url.search=new URLSearchParams({action:'status',id,callback,t:String(Date.now())}).toString();script.src=url.toString();script.referrerPolicy='no-referrer';document.head.append(script);
   });
 }
-export async function submitLead(lead:Lead, transport:{post:(url:string,options:RequestInit)=>Promise<unknown>;confirm:(id:string)=>Promise<boolean>}={post:fetch,confirm:confirmReceipt}):Promise<void>{
+export async function submitLead(lead:Lead, transport:{post:(url:string,options:RequestInit)=>Promise<unknown>;confirm:(id:string)=>Promise<boolean>}={post:(url,options)=>fetch(url,options),confirm:confirmReceipt}):Promise<void>{
   if(!site.appsScriptUrl)throw new Error('El registro aún no está habilitado.');
   const body=new URLSearchParams({id:lead.id,name:lead.name,email:lead.email,whatsapp:lead.whatsapp,consent:lead.consent,communityInterest:lead.communityInterest,policyVersion:lead.policyVersion,consentedAt:lead.consentedAt,startedAt:String(lead.startedAt),submittedAt:String(lead.submittedAt),website:lead.website,...lead.attribution});
   await transport.post(site.appsScriptUrl,{method:'POST',mode:'no-cors',credentials:'omit',body,signal:AbortSignal.timeout(15000)});
