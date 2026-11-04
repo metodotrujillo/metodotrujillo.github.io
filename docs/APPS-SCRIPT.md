@@ -1,6 +1,6 @@
 # Activar el registro en Google Sheets
 
-El registro está apagado por defecto. La versión pública permite probar sin dar datos. No actives la captura hasta completar el responsable y revisar la política. No es necesario un servidor propio.
+El registro está apagado por defecto. La versión pública requiere registro antes de abrir las calculadoras. Mientras falta la conexión, no se admite el acceso de prueba sin registro. No actives la captura hasta completar el responsable y revisar la política. No es necesario un servidor propio.
 
 1. Crea una hoja de Google Sheets privada. Copia el ID entre `/d/` y `/edit` de su URL.
 2. Abre **Extensiones → Apps Script**. Reemplaza `Código.gs` por el contenido de `docs/apps-script.gs`.

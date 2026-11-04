@@ -34,7 +34,7 @@ En `src/config/site.ts`:
 | `url` | URL de producción si cambia repositorio o dominio |
 | `analytics` | Plausible opcional. Apagado por defecto. Configura dominio y URL de script de tu instalación |
 
-**Estado de entrega:** datos del responsable, URLs de captura/comunidad y redes pendientes por decisión del propietario. El formulario está construido, pero sus campos no recogen datos mientras falta configuración. Se permite usar directamente las calculadoras en esta vista previa. Cuando `captureReady()` sea verdadero, se exige el registro y el acceso se guarda en localStorage. El desbloqueo es una comodidad del navegador, no autenticación ni un control de seguridad.
+**Estado de entrega:** datos del responsable, URLs de captura/comunidad y redes pendientes por decisión del propietario. El formulario está construido, pero sus campos no recogen datos mientras falta configuración. El registro es obligatorio para abrir las calculadoras, incluso entrando por enlace directo. No se permite saltarlo mediante un botón de prueba. Hasta completar la integración el registro está inhabilitado. Tras registrar los datos, el acceso se guarda en localStorage. El desbloqueo es una comodidad del navegador, no autenticación ni un control de seguridad.
 
 La captura completa se configura siguiendo [docs/APPS-SCRIPT.md](docs/APPS-SCRIPT.md). El código está en [docs/apps-script.gs](docs/apps-script.gs). No se ha enviado un registro real ni creado una hoja durante la implementación. La confirmación real de fila y el enlace de comunidad deben verificarse al conectar tus URLs.
 
@@ -99,3 +99,5 @@ Se separó el registro de acceso de la invitación opcional: «Quiero aprender a
 ## Dirección de la organización
 
 Repositorio trasladado a `metodotrujillo/metodotrujillo.github.io` para publicar directamente en https://metodotrujillo.github.io/. Se conservan el historial y el flujo de GitHub Actions. La URL anterior de Pages no debe usarse en enlaces de campaña nuevos.
+
+El acceso de demostración anterior (`trujillo.access.v1`) no se acepta como registro. El acceso actual usa `trujillo.registered-access.v2`. La entrega de registros se reintenta si falla la conexión, sin volver a bloquear a alguien que ya completó el formulario.

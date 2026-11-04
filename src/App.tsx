@@ -7,11 +7,11 @@ import useLeadDelivery from './components/useLeadDelivery';
 import { calculators, type CalculatorSlug } from './catalog';
 import { readStore, writeStore } from './lib/storage';
 import { captureAttribution } from './lib/leads';
-import { captureReady, site } from './config/site';
+import { site } from './config/site';
 const Calculator=lazy(()=>import('./pages/Calculator'));
 const Access=lazy(()=>import('./pages/Access'));
 const Policy=lazy(()=>import('./pages/Policy'));
-const ACCESS_KEY='trujillo.access.v1';
+const ACCESS_KEY='trujillo.registered-access.v2';
 export default function App(){
   const [hash,setHash]=useState(location.hash.slice(1)||'/');
   const [unlocked,setUnlocked]=useState(()=>readStore(ACCESS_KEY)==='yes');
@@ -23,7 +23,7 @@ export default function App(){
   useEffect(()=>{if(firstRoute.current){firstRoute.current=false;return;}document.getElementById('main')?.focus({preventScroll:true});},[route]);
   function unlock(){setUnlocked(true);writeStore(ACCESS_KEY,'yes');location.hash=`/acceso${entry?`?next=${entry}`:''}`;}
   const go=unlocked?'#/':`#/acceso${entry?`?next=${entry}`:''}`;
-  const content=route==='/'?<Home unlocked={unlocked}/>:route==='/politica-de-datos'?<Policy/>:route==='/acceso'||calculator&&!unlocked&&captureReady()?<Access entry={entry as CalculatorSlug|undefined} unlocked={unlocked} onUnlock={unlock} onLead={enqueue}/>:calculator?<Calculator key={calculator.slug} slug={calculator.slug}/>:<section className="container page-intro"><p className="eyebrow">VOLVAMOS A HACER LAS CUENTAS</p><h1>Esta página no está aquí.</h1><p>Elige una de nuestras cuatro calculadoras para seguir.</p><a className="button primary" href="#/">Ver las calculadoras<Icon name="arrow" size={17}/></a></section>;
+  const content=route==='/'?<Home unlocked={unlocked}/>:route==='/politica-de-datos'?<Policy/>:route==='/acceso'||calculator&&!unlocked?<Access entry={entry as CalculatorSlug|undefined} unlocked={unlocked} onUnlock={unlock} onLead={enqueue}/>:calculator?<Calculator key={calculator.slug} slug={calculator.slug}/>:<section className="container page-intro"><p className="eyebrow">VOLVAMOS A HACER LAS CUENTAS</p><h1>Esta página no está aquí.</h1><p>Elige una de nuestras cuatro calculadoras para seguir.</p><a className="button primary" href="#/">Ver las calculadoras<Icon name="arrow" size={17}/></a></section>;
   return <><SEO route={route}/><Analytics/><a className="skip-link" href="#main" onClick={e=>{e.preventDefault();document.getElementById('main')?.focus();}}>Saltar al contenido</a><header className="site-header"><div className="container header-inner"><a href="#/" className="brand" title="Volver al inicio">TRUJILLO<span>DINERO • INVERSIONES • NEGOCIOS</span></a><nav aria-label="Navegación principal"><a href="#/" className="nav-home">Las calculadoras</a><a className="button small outline" href={go}>{unlocked?'Mis calculadoras':'Acceso gratis'}<Icon name="arrow" size={16}/></a></nav></div></header>
   {status!=='idle'&&<div className="delivery-status container" role="status">{status==='sending'?'Tu acceso ya está listo. Estamos confirmando el registro…':status==='success'?'Registro recibido. Ya puedes usar las cuatro calculadoras.':'Ya tienes acceso. El registro no se pudo confirmar; reintentaremos mientras esta página esté abierta.'}{status==='error'&&<button type="button" onClick={retry}>Reintentar ahora</button>}</div>}
   <main id="main" tabIndex={-1}><Suspense fallback={<div className="container loading-state" role="status">Preparando tus herramientas…</div>}>{content}</Suspense></main>
