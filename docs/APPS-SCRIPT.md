@@ -9,7 +9,7 @@ El formulario ya tiene el responsable Edwin Velaquez, Medellín, y el correo fac
 ## Pasos del propietario en Google
 
 1. Abre la hoja con tu cuenta de Google. No la publiques ni actives «cualquier persona con el enlace».
-2. Ve a **Extensiones → Apps Script**. Sustituye el contenido de `Código.gs` por el de `docs/apps-script.gs` de este repositorio y guarda. El ID de la hoja ya está incluido en `DEFAULT_SHEET_ID`; no necesitas crear una API key ni configurar una cuenta de facturación. Opcionalmente `SHEET_ID` en Propiedades del script permite cambiar el destino.
+2. El proyecto nuevo ya fue creado y su código guardado desde esa hoja, con la cuenta personal verificada. Abre **Trujillo · Registro personal Edwin**: https://script.google.com/home/projects/1EJRZi36BQlJz5O_VtNUAegwe-1UUJIG6JcDZiWqLRiOGsp5ykGajIInH/edit . No reutilices los proyectos anteriores. El ID correcto de la hoja ya está incluido en `DEFAULT_SHEET_ID`. No necesitas una API key ni una cuenta de facturación.
 3. Selecciona la función `initialize` y pulsa **Ejecutar**. Google solicitará las autorizaciones de tu cuenta. Revisa los permisos antes de concederlos. El agente no necesita tu contraseña ni un token.
 4. Ve a **Implementar → Nueva implementación → Aplicación web**. Elige **Ejecutar como: yo** y **Quién tiene acceso: cualquier persona**. Esto habilita el receptor de formularios; la hoja sigue privada. Algunas cuentas de organizaciones no permiten acceso anónimo.
 5. Implementa y copia la URL terminada en `/exec`, no `/dev`. Envía esa URL para conectarla a la página.

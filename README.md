@@ -103,3 +103,5 @@ Hoja nueva creada desde cero en el navegador de la cuenta personal verificada: `
 Repositorio trasladado a `metodotrujillo/metodotrujillo.github.io` para publicar directamente en https://metodotrujillo.github.io/. Se conservan el historial y el flujo de GitHub Actions. La URL anterior de Pages no debe usarse en enlaces de campaña nuevos.
 
 El acceso de demostración anterior (`trujillo.access.v1`) no se acepta como registro. El acceso actual usa `trujillo.registered-access.v2`. La entrega de registros se reintenta si falla la conexión, sin volver a bloquear a alguien que ya completó el formulario.
+
+Proyecto de Apps Script creado desde cero con la cuenta personal verificada en el navegador: `Trujillo · Registro personal Edwin` (`1EJRZi36BQlJz5O_VtNUAegwe-1UUJIG6JcDZiWqLRiOGsp5ykGajIInH`). El código está guardado en ese editor y apunta a la hoja nueva. No se utilizan las hojas ni los proyectos de la conexión de Drive de Trujillo. La autorización y el despliegue de la aplicación web siguen pendientes hasta confirmación desde Google.
