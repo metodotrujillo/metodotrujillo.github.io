@@ -1,8 +1,8 @@
 export const site = {
   url: 'https://metodotrujillo.github.io/',
-  appsScriptUrl: '', // URL https://script.google.com/macros/s/…/exec
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwKT9PDjPywCgH613W89gQTxOcg-3sxss9pIoIVo-lzfHlGfsCG5OMrua03Q8tfe2y7BQ/exec',
   whatsappCommunityUrl: '',
-  leadCaptureEnabled: false, // Activar después de completar los datos y desplegar Apps Script.
+  leadCaptureEnabled: true, // Receptor desplegado en la cuenta personal del responsable.
   policyVersion: '2026-11-04.v3',
   policyDate: '4 de noviembre de 2026',
   responsible: { name: 'Edwin Velaquez', city: 'Medellín', email: 'velasquezgiraldoedwin@gmail.com' },
