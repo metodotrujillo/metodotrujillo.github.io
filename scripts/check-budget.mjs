@@ -1,0 +1,10 @@
+import { readFileSync, readdirSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
+const files=readdirSync('dist/assets').filter(f=>f.endsWith('.js'));
+const html=readFileSync('dist/index.html','utf8');
+const entry=html.match(/src="[^\"]*\/([^/\"]+\.js)"/)?.[1];
+if(!entry)throw new Error('No se encontró el JS inicial.');
+const bytes=gzipSync(readFileSync(`dist/assets/${entry}`)).byteLength;
+console.log(`JS inicial: ${(bytes/1024).toFixed(2)} KiB gzip. Límite: 100 KB gzip.`);
+if(bytes>=100_000)process.exitCode=1;
+console.log(`Chunks adicionales (carga diferida): ${files.filter(f=>f!==entry).join(', ')}`);

@@ -10,10 +10,11 @@ export default function useMotion(root: RefObject<HTMLElement | null>) {
       const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const card=entry.target as HTMLElement;const reveal=animate(card,{translateY:[20,0],opacity:[.7,1],duration:650,ease:'out(3)'});cleanups.push(()=>reveal.revert());observer.unobserve(card);}}),{threshold:.15});
       root.current.querySelectorAll<HTMLElement>('.tool-card').forEach(card=>{
         observer.observe(card);
-        const enter=()=>{if(!media.matches){const a=animate(card.querySelectorAll('.bento-art'),{translateY:-4,scale:1.025,duration:400,ease:'out(3)'});cleanups.push(()=>a.revert());}};
-        const leave=()=>{if(!media.matches){const a=animate(card.querySelectorAll('.bento-art'),{translateY:0,scale:1,duration:400,ease:'out(3)'});cleanups.push(()=>a.revert());}};
+        let hover:ReturnType<typeof animate>|null=null;
+        const enter=()=>{if(!media.matches){hover?.revert();hover=animate(card.querySelectorAll('.bento-art'),{translateY:[0,-4],scale:[1,1.025],duration:400,ease:'out(3)'});}};
+        const leave=()=>{if(!media.matches){hover?.revert();hover=animate(card.querySelectorAll('.bento-art'),{translateY:[-4,0],scale:[1.025,1],duration:400,ease:'out(3)'});}};
         const move=(e:PointerEvent)=>{if(e.pointerType==='touch'||media.matches)return;const r=card.getBoundingClientRect();card.style.setProperty('--spot-x',`${e.clientX-r.left}px`);card.style.setProperty('--spot-y',`${e.clientY-r.top}px`);};
-        card.addEventListener('pointerenter',enter);card.addEventListener('pointerleave',leave);card.addEventListener('pointermove',move);cleanups.push(()=>{card.removeEventListener('pointerenter',enter);card.removeEventListener('pointerleave',leave);card.removeEventListener('pointermove',move);});
+        card.addEventListener('pointerenter',enter);card.addEventListener('pointerleave',leave);card.addEventListener('pointermove',move);cleanups.push(()=>{hover?.revert();card.removeEventListener('pointerenter',enter);card.removeEventListener('pointerleave',leave);card.removeEventListener('pointermove',move);});
       });cleanups.push(()=>observer.disconnect());
       const stop=()=>{if(media.matches)cleanups.forEach(f=>f());};media.addEventListener('change',stop);cleanups.push(()=>media.removeEventListener('change',stop));
     });return()=>{disposed=true;cleanups.forEach(f=>f());};

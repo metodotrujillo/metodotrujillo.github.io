@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://edwinvg99.github.io/calculadoras-trujillo/sitemap.xml

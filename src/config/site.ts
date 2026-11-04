@@ -8,7 +8,7 @@ export const site = {
   responsible: { name: '[PENDIENTE: nombre del responsable]', city: '[PENDIENTE: ciudad]', email: '[PENDIENTE: correo de contacto]' },
   social: { instagram: '', tiktok: '', youtube: '', facebook: '' },
   analytics: { enabled: false, plausibleDomain: '', scriptUrl: 'https://plausible.io/js/script.hash.js' },
-} as const;
+};
 export function captureReady() {
   return site.leadCaptureEnabled && /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(site.appsScriptUrl) && !Object.values(site.responsible).some(v=>v.includes('[PENDIENTE'));
 }

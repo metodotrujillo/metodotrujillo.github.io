@@ -23,10 +23,11 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm test -- --passWithNoTests
+      - run: npm test
       - run: npm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      - run: npm run check:budget
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
