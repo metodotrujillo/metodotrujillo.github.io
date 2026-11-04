@@ -2,7 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import lighthouse from 'lighthouse';
 import { launch } from 'chrome-launcher';
 const chrome=await launch({chromeFlags:['--headless','--no-sandbox','--disable-dev-shm-usage']});
-const base=process.env.AUDIT_URL||'http://127.0.0.1:4173/calculadoras-trujillo/';
+const base=process.env.AUDIT_URL||'http://127.0.0.1:4173/';
 const routes=process.env.AUDIT_ROUTES?.split(',')||['/','/horas-de-trabajo','/fondo-de-emergencia','/cdt','/4x1000','/acceso','/politica-de-datos'];
 const summaries=[];
 try{

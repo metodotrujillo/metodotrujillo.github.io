@@ -2,7 +2,7 @@
 
 4 herramientas educativas para Colombia. React + TypeScript strict + Vite + Tailwind CSS 4. Sitio estático con rutas hash, GitHub Actions y GitHub Pages.
 
-**Web:** https://edwinvg99.github.io/calculadoras-trujillo/
+**Web:** https://metodotrujillo.github.io/
 
 ## Desarrollo
 
@@ -17,7 +17,7 @@ npm run check:budget
 npm run preview -- --port 4173
 ```
 
-La URL local incluye `/calculadoras-trujillo/`. Vite usa ese `base`; en Actions se obtiene automáticamente del nombre del repositorio. Para otro destino define `VITE_BASE_PATH=/otro-repo/` o `/` para un dominio propio. Mantén la barra final.
+La URL local es `http://127.0.0.1:5173/`. Vite y Actions usan `base: /` para el sitio raíz de la organización. Para otro destino define `VITE_BASE_PATH=/otro-repo/` o `/` para un dominio propio. Mantén la barra final.
 
 ## Configuración del propietario
 
@@ -95,3 +95,7 @@ Completar responsable y URLs; revisar el texto marcado `REVISAR CON ABOGADO`; de
 ## Registro y comunidad (actualización)
 
 Se separó el registro de acceso de la invitación opcional: «Quiero aprender a manejar mejor mi dinero». El interés y su fecha quedan en dos columnas adicionales de Sheets, aun sin grupo de WhatsApp. El acceso funciona igual si la persona responde no. Política y script usan la versión `2026-11-04.v2`. La integración real sigue pendiente de la URL de Apps Script y de los datos del responsable; no se ha creado ni conectado una hoja.
+
+## Dirección de la organización
+
+Repositorio trasladado a `metodotrujillo/metodotrujillo.github.io` para publicar directamente en https://metodotrujillo.github.io/. Se conservan el historial y el flujo de GitHub Actions. La URL anterior de Pages no debe usarse en enlaces de campaña nuevos.

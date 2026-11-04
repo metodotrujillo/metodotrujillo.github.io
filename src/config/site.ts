@@ -1,5 +1,5 @@
 export const site = {
-  url: 'https://edwinvg99.github.io/calculadoras-trujillo/',
+  url: 'https://metodotrujillo.github.io/',
   appsScriptUrl: '', // URL https://script.google.com/macros/s/…/exec
   whatsappCommunityUrl: '',
   leadCaptureEnabled: false, // Activar después de completar los datos y desplegar Apps Script.
