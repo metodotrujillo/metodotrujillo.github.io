@@ -3,8 +3,10 @@ import { attributionFrom, submitLead, validateContact, type Lead } from './leads
 import { site } from '../config/site';
 afterEach(()=>vi.restoreAllMocks());
 describe('validación de contacto',()=>{
-  it('acepta datos colombianos completos',()=>expect(Object.values(validateContact('Ana','ana@example.com','3001234567',true)).every(v=>v==='')).toBe(true));
+  it('acepta datos colombianos completos',()=>expect(Object.values(validateContact('Ana','ana@example.com','3001234567',true,'no')).every(v=>v==='')).toBe(true));
   it.each(['','123','2001234567','30012345678','+573001234567'])('rechaza teléfono %s',phone=>expect(validateContact('Ana','ana@example.com',phone,true).whatsapp).not.toBe(''));
+  it.each(['si','no'])('la respuesta %s permite registrarse',choice=>expect(Object.values(validateContact('Ana','ana@example.com','3001234567',true,choice)).every(v=>v==='')).toBe(true));
+  it('exige respuesta de comunidad sin preselección',()=>expect(validateContact('Ana','ana@example.com','3001234567',true,'').communityInterest).not.toBe(''));
   it('exige consentimiento expreso',()=>expect(validateContact('Ana','ana@example.com','3001234567',false).consent).not.toBe(''));
   it('detecta nombre/correo vacíos',()=>{const r=validateContact('','','',false);expect(r.name).not.toBe('');expect(r.email).not.toBe('');});
   it('limita longitud',()=>expect(validateContact('a'.repeat(81),'x'.repeat(255),'3001234567',true).name).not.toBe(''));

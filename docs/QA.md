@@ -47,3 +47,7 @@ Completar responsable, correo, ciudad, URL Apps Script, comunidad y redes. Revis
 3. `1664d7c`: UI de calculadoras, rediseño bento y Anime.js.
 4. `a896d0e`: acceso, política y captura idempotente en Sheets.
 5. Commit final de pulido: SEO, imagen social, auditorías, accesibilidad, documentación y ajustes de integración.
+
+## Actualización de registro
+
+Responsable diligenciado con los datos facilitados por el propietario. Pregunta de comunidad con Sí/No obligatorio, sin selección inicial y acceso igual para ambas respuestas. 89 pruebas pasan, incluida validación de respuesta vacía. Hoja nativa de Google Sheets creada e inspeccionada por API: `Leads!A1:O2`, quince encabezados, sin registros personales, filtro y primera fila fija, región Colombia y zona America/Bogota. Se revisó visualmente el XLSX previo a importar; el navegador solicitó acceso a Google y no permitió inspección visual nativa. No se ha desplegado Apps Script ni probado recepción de filas reales.

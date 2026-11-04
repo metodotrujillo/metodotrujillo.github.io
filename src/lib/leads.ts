@@ -4,8 +4,8 @@ export const PENDING_KEY='trujillo.pending.v1';
 const ATTRIBUTION_KEY='trujillo.attribution.v1';
 export type Attribution={utm_source:string;utm_medium:string;utm_campaign:string;src:string;entryCalculator:string};
 export type Lead={id:string;name:string;email:string;whatsapp:string;consent:'si';communityInterest:'si'|'no';policyVersion:string;consentedAt:string;startedAt:number;submittedAt:number;website:string;attribution:Attribution};
-export function validateContact(name:string,email:string,phone:string,consent:boolean){
-  return {name:name.trim().length<2||name.trim().length>80?'Escribe tu nombre (2 a 80 caracteres).':'',email:!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email.trim())||email.length>254?'Revisa tu correo electrónico.':'',whatsapp:!(/^3\d{9}$/).test(phone)?'Usa 10 dígitos, empezando por 3.':'',consent:!consent?'Necesitamos tu autorización para registrar tus datos.':''};
+export function validateContact(name:string,email:string,phone:string,consent:boolean,communityInterest:string=''){
+  return {name:name.trim().length<2||name.trim().length>80?'Escribe tu nombre (2 a 80 caracteres).':'',email:!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email.trim())||email.length>254?'Revisa tu correo electrónico.':'',whatsapp:!(/^3\d{9}$/).test(phone)?'Usa 10 dígitos, empezando por 3.':'',consent:!consent?'Necesitamos tu autorización para registrar tus datos.':'',communityInterest:!['si','no'].includes(communityInterest)?'Elige Sí o No para la invitación a la comunidad.':''};
 }
 export function attributionFrom(search:string,hash:string):Attribution{
   const query=new URLSearchParams(search);const route=hash.replace(/^#\//,'').split('?')[0];const hashQuery=new URLSearchParams(hash.split('?')[1]||'');const get=(key:string)=>(query.get(key)||hashQuery.get(key)||'').slice(0,160);

@@ -1,42 +1,45 @@
-# Activar el registro en Google Sheets
+# Activar los registros en Google Sheets
 
-El registro está apagado por defecto. La versión pública requiere registro antes de abrir las calculadoras. Mientras falta la conexión, no se admite el acceso de prueba sin registro. No actives la captura hasta completar el responsable y revisar la política. No es necesario un servidor propio.
+La hoja ya está creada, es privada y contiene la pestaña `Leads` con sus quince encabezados, primera fila inmovilizada y filtro. Ubicación: carpeta `ChatGPT` de Google Drive.
 
-1. Crea una hoja de Google Sheets privada. Copia el ID entre `/d/` y `/edit` de su URL.
-2. Abre **Extensiones → Apps Script**. Reemplaza `Código.gs` por el contenido de `docs/apps-script.gs`.
-3. En **Configuración del proyecto → Propiedades del script**, agrega `SHEET_ID` con el ID de tu hoja. No pongas credenciales en el frontend.
-4. Selecciona y ejecuta `initialize`. Autoriza el acceso a tu hoja desde tu propia cuenta. Se crea la pestaña `Leads` y sus encabezados.
-5. En **Implementar → Nueva implementación**, elige **Aplicación web**. Ejecutar como: **yo**. Acceso: **cualquier persona**, incluyendo visitantes sin sesión. Algunas organizaciones bloquean esta opción; en ese caso necesitas una cuenta donde esté permitida. La hoja se mantiene privada.
-6. Implementa y copia la URL que termina en `/exec`, no `/dev`.
-7. Completa `src/config/site.ts`: `appsScriptUrl`, `responsible.name`, `responsible.city`, `responsible.email`, `whatsappCommunityUrl` y redes. Revisa el borrador jurídico. Cambia `leadCaptureEnabled` a `true`.
-8. La versión `policyVersion` del sitio y `POLICY_VERSION` del script debe coincidir. Si cambias el texto de autorización, actualiza ambos y conserva las versiones anteriores para acreditar consentimientos.
-9. Ejecuta `npm test` y `npm run build`; haz commit y push a `main`. Actions publica Pages.
-10. Prueba un registro con datos de prueba que controles, acepta expresamente la autorización y confirma una única fila en `Leads`. Verifica fecha, nombre, correo, celular, autorización, versión, origen y calculadora. Comprueba también un envío con conexión interrumpida y el reintento. No uses datos reales de terceros para las pruebas.
+[Abre la hoja de registros](https://docs.google.com/spreadsheets/d/1WcOkIwp4gnv452aHJzYPCVKX0tQkRVqM8d_cyazx2QE/edit)
 
-## Confirmación y reintentos
+El formulario ya tiene el responsable Edwin Velaquez, Medellín, y el correo facilitado por el propietario. Está pendiente desplegar la aplicación web en su cuenta y pegar su URL en la configuración. **La hoja creada todavía no recibe registros de la web.**
 
-El POST de Apps Script funciona con `mode: no-cors` y `URLSearchParams`, sin preflight. Su respuesta es opaca: **no se interpreta como éxito**. Después del POST se consulta un endpoint JSONP de solo estado para confirmar la existencia del UUID del registro. El GET no devuelve datos personales y valida estrictamente el callback. No contiene correo ni teléfono en la URL. Debes confiar en el script que configuras porque JSONP ejecuta JavaScript; solo se admiten URLs de Apps Script.
+## Pasos del propietario en Google
 
-Las calculadoras se desbloquean independientemente del envío. La cola se guarda en `sessionStorage` hasta confirmar o expirar en 24 horas; se reintenta hasta cinco veces con espera creciente, al recuperar la conexión o mediante el botón manual. Los reintentos usan el mismo UUID. `LockService` y la búsqueda del UUID evitan filas duplicadas. No se prometen reintentos después de cerrar la pestaña. Si el navegador bloquea almacenamiento, la cola funciona en memoria mientras la página permanezca abierta.
+1. Abre la hoja con tu cuenta de Google. No la publiques ni actives «cualquier persona con el enlace».
+2. Ve a **Extensiones → Apps Script**. Sustituye el contenido de `Código.gs` por el de `docs/apps-script.gs` de este repositorio y guarda. El ID de la hoja ya está incluido en `DEFAULT_SHEET_ID`; no necesitas crear una API key ni configurar una cuenta de facturación. Opcionalmente `SHEET_ID` en Propiedades del script permite cambiar el destino.
+3. Selecciona la función `initialize` y pulsa **Ejecutar**. Google solicitará las autorizaciones de tu cuenta. Revisa los permisos antes de concederlos. El agente no necesita tu contraseña ni un token.
+4. Ve a **Implementar → Nueva implementación → Aplicación web**. Elige **Ejecutar como: yo** y **Quién tiene acceso: cualquier persona**. Esto habilita el receptor de formularios; la hoja sigue privada. Algunas cuentas de organizaciones no permiten acceso anónimo.
+5. Implementa y copia la URL terminada en `/exec`, no `/dev`. Envía esa URL para conectarla a la página.
 
-Honeypot y mínimo de tres segundos se validan en cliente y script. Hay un límite básico por correo de 60 segundos. Estas medidas frenan spam sencillo; un endpoint anónimo no ofrece protección completa contra bots o agotamiento de cuotas. Vigila las cuotas y ejecuciones de Apps Script.
+## Conectar el frontend
 
-## Actualizar el script
+En `src/config/site.ts`, completa `appsScriptUrl` y cambia `leadCaptureEnabled` a `true`. Los datos del responsable ya están diligenciados. Mantén `policyVersion: '2026-11-04.v3'` igual a `POLICY_VERSION` en el script. Ejecuta pruebas y compilación, haz commit y push. GitHub Actions publica la web.
 
-Guardar cambios en el editor no actualiza `/exec`. Usa **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar** para mantener la misma URL. Revisa permisos y acceso anónimo en una ventana privada.
+Después, realiza dos registros de prueba con datos que controles: uno con Sí y otro con No a la comunidad. Confirma recepción, respuesta y fecha en `Leads`. No uses datos de terceros para pruebas. La integración no se considera verificada hasta ver las filas desde la web real.
 
-## Protección y atención de titulares
+## Qué guarda la hoja
 
-Restringe la hoja al responsable y personal autorizado, activa la protección de tu cuenta y define eliminación, revisión anual y atención de consultas/reclamos. Evalúa con tu abogado los términos de Google como encargado y la transmisión internacional. El borrador no sustituye esa revisión.
+Una fila por registro: ID, fecha del servidor, nombre, correo, celular, autorización de datos, versión de la política, fecha de autorización, UTM, red de origen, calculadora de entrada, respuesta a comunidad (`si` o `no`) y fecha/hora de esa respuesta. No se envían los valores financieros de los simuladores.
+
+Nombre, correo, celular, autorización de acceso y respuesta Sí/No son obligatorios. Las respuestas no tienen valor predeterminado. Responder No permite usar las mismas cuatro herramientas y no autoriza comunicaciones de comunidad. Responder Sí autoriza contacto educativo por correo o WhatsApp y que Trujillo invite o agregue a la persona a su futura comunidad de finanzas personales. El envío del formulario no la agrega ahora a ningún grupo. Filtra la columna `interes_comunidad` por `si` antes de preparar invitaciones o agregar personas; respeta las revocatorias posteriores. La columna `fecha_hora_respuesta_comunidad` se completa en ambos casos.
+
+Para descargar una copia Excel: **Archivo → Descargar → Microsoft Excel (.xlsx)**. La hoja de Google es el registro activo; la descarga es una copia de ese momento.
+
+## Confirmación, privacidad y reintentos
+
+El POST usa `no-cors` y devuelve una respuesta opaca. No la consideramos confirmación: después se consulta por JSONP un endpoint de solo estado que confirma el UUID, sin devolver nombre, correo o celular. El callback está validado y la URL GET no contiene esos datos. Usa únicamente tu propia URL de Apps Script.
+
+Tras completar el formulario se desbloquean las calculadoras incluso si la red falla. Se guarda temporalmente un registro pendiente en `sessionStorage` durante la sesión, con vencimiento a las 24 horas. Se hacen hasta cinco reintentos con espera creciente, al recuperar la conexión o desde el botón manual. No se prometen envíos después de cerrar la pestaña. Si el navegador bloquea almacenamiento, se trabaja en memoria.
+
+Los reintentos usan el mismo UUID. `LockService` y la búsqueda del UUID evitan filas duplicadas. Honeypot, mínimo de tres segundos y límite básico por correo frenan spam sencillo; vigila las cuotas de Apps Script.
+
+## Actualizaciones
+
+Guardar el código no actualiza `/exec`: usa **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar**. Si cambias la autorización, cambia la versión tanto en la web como en Apps Script y conserva el historial.
+
+Restringe el acceso a la hoja y define atención de solicitudes, conservación y revisión periódica. El texto de la política conserva el comentario `REVISAR CON ABOGADO` para la revisión correspondiente.
 
 Fuentes técnicas: [Aplicaciones web](https://developers.google.com/apps-script/guides/web), [ContentService y JSONP](https://developers.google.com/apps-script/guides/content).
-
-## Registro simple y futura comunidad
-
-El formulario pide nombre, correo y celular. La autorización para registrar el acceso es independiente de la invitación opcional a recibir educación financiera y novedades de la futura comunidad. Ambas casillas empiezan sin marcar. No necesitas tener un grupo de WhatsApp para activar el registro.
-
-Las nuevas columnas al final de `Leads` son `interes_comunidad` (`si` o `no`) y `fecha_hora_interes_comunidad` (fecha de autorización si eligió `si`; vacía si eligió `no`). No marcar la opción permite igualmente usar las cuatro calculadoras. Filtra por `si` antes de contactar para contenidos o comunidad; el registro solo no autoriza esas comunicaciones.
-
-La versión de esta autorización es `2026-11-04.v2`. Al actualizar una instalación anterior, publica una nueva versión de Apps Script además del frontend. El script amplía los encabezados de una hoja generada previamente sin mover sus primeras trece columnas. Conserva los registros y autorizaciones anteriores con su propia versión.
-
-Para descargar tu lista como Excel: abre la hoja y usa **Archivo → Descargar → Microsoft Excel (.xlsx)**. Google Sheets es el registro activo; el archivo descargado es una copia del momento.

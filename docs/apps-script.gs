@@ -1,13 +1,15 @@
 /** Calculadoras Trujillo · Google Apps Script (runtime V8).
- * Completar Script Properties: SHEET_ID. No hacer pública la hoja.
+ * Hoja de destino preparada. SHEET_ID en Propiedades del script permite cambiarla.
+ * No hacer pública la hoja.
  * REVISAR CON ABOGADO: datos del responsable, política y condiciones de Google.
  */
-const POLICY_VERSION = '2026-11-04.v2';
+const POLICY_VERSION = '2026-11-04.v3';
 const SHEET_NAME = 'Leads';
-const HEADERS = ['id', 'fecha_servidor', 'nombre', 'correo', 'whatsapp', 'autorizacion', 'version_politica', 'fecha_hora_autorizacion', 'utm_source', 'utm_medium', 'utm_campaign', 'src', 'calculadora_entrada', 'interes_comunidad', 'fecha_hora_interes_comunidad'];
+const DEFAULT_SHEET_ID = '1WcOkIwp4gnv452aHJzYPCVKX0tQkRVqM8d_cyazx2QE';
+const HEADERS = ['id', 'fecha_servidor', 'nombre', 'correo', 'whatsapp', 'autorizacion', 'version_politica', 'fecha_hora_autorizacion', 'utm_source', 'utm_medium', 'utm_campaign', 'src', 'calculadora_entrada', 'interes_comunidad', 'fecha_hora_respuesta_comunidad'];
 
 function sheet_() {
-  const id = PropertiesService.getScriptProperties().getProperty('SHEET_ID');
+  const id = PropertiesService.getScriptProperties().getProperty('SHEET_ID') || DEFAULT_SHEET_ID;
   if (!id) throw new Error('Falta SHEET_ID en Propiedades del script.');
   const book = SpreadsheetApp.openById(id);
   let sheet = book.getSheetByName(SHEET_NAME);
@@ -51,7 +53,7 @@ function doPost(e) {
     const key = Utilities.base64EncodeWebSafe(digest);
     const cache = CacheService.getScriptCache();
     if (cache.get('rate_'+key)) return json_({ok:false});
-    sheet.appendRow([p.id, new Date().toISOString(), safe_(String(p.name).trim(),80), safe_(String(p.email).toLowerCase(),254), safe_(p.whatsapp,13), 'si', POLICY_VERSION, safe_(p.consentedAt,40), safe_(p.utm_source), safe_(p.utm_medium), safe_(p.utm_campaign), safe_(p.src,10), safe_(p.entryCalculator,30), p.communityInterest, p.communityInterest === 'si' ? safe_(p.consentedAt,40) : '']);
+    sheet.appendRow([p.id, new Date().toISOString(), safe_(String(p.name).trim(),80), safe_(String(p.email).toLowerCase(),254), safe_(p.whatsapp,13), 'si', POLICY_VERSION, safe_(p.consentedAt,40), safe_(p.utm_source), safe_(p.utm_medium), safe_(p.utm_campaign), safe_(p.src,10), safe_(p.entryCalculator,30), p.communityInterest, safe_(p.consentedAt,40)]);
     SpreadsheetApp.flush();
     cache.put('rate_'+key, '1', 60);
     return json_({ok:true});

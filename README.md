@@ -34,9 +34,9 @@ En `src/config/site.ts`:
 | `url` | URL de producción si cambia repositorio o dominio |
 | `analytics` | Plausible opcional. Apagado por defecto. Configura dominio y URL de script de tu instalación |
 
-**Estado de entrega:** datos del responsable, URLs de captura/comunidad y redes pendientes por decisión del propietario. El formulario está construido, pero sus campos no recogen datos mientras falta configuración. El registro es obligatorio para abrir las calculadoras, incluso entrando por enlace directo. No se permite saltarlo mediante un botón de prueba. Hasta completar la integración el registro está inhabilitado. Tras registrar los datos, el acceso se guarda en localStorage. El desbloqueo es una comodidad del navegador, no autenticación ni un control de seguridad.
+**Estado de entrega:** responsable diligenciado; hoja privada creada. Falta la URL de Apps Script y su autorización en Google; el enlace de comunidad y las redes siguen pendientes. El formulario está construido, pero sus campos no recogen datos mientras falta configuración. El registro es obligatorio para abrir las calculadoras, incluso entrando por enlace directo. No se permite saltarlo mediante un botón de prueba. Hasta completar la integración el registro está inhabilitado. Tras registrar los datos, el acceso se guarda en localStorage. El desbloqueo es una comodidad del navegador, no autenticación ni un control de seguridad.
 
-La captura completa se configura siguiendo [docs/APPS-SCRIPT.md](docs/APPS-SCRIPT.md). El código está en [docs/apps-script.gs](docs/apps-script.gs). No se ha enviado un registro real ni creado una hoja durante la implementación. La confirmación real de fila y el enlace de comunidad deben verificarse al conectar tus URLs.
+La hoja destino ya está creada en Google Drive. La captura completa se configura siguiendo [docs/APPS-SCRIPT.md](docs/APPS-SCRIPT.md). El código está en [docs/apps-script.gs](docs/apps-script.gs). No se ha enviado un registro real. La hoja ya existe; falta implementar Apps Script desde la cuenta del propietario. La confirmación real de fila y el enlace de comunidad deben verificarse al conectar tus URLs.
 
 ## Cifras y fórmulas
 
@@ -94,7 +94,9 @@ Completar responsable y URLs; revisar el texto marcado `REVISAR CON ABOGADO`; de
 
 ## Registro y comunidad (actualización)
 
-Se separó el registro de acceso de la invitación opcional: «Quiero aprender a manejar mejor mi dinero». El interés y su fecha quedan en dos columnas adicionales de Sheets, aun sin grupo de WhatsApp. El acceso funciona igual si la persona responde no. Política y script usan la versión `2026-11-04.v2`. La integración real sigue pendiente de la URL de Apps Script y de los datos del responsable; no se ha creado ni conectado una hoja.
+Nombre, correo y celular obligatorios; autorización de datos de acceso y pregunta de comunidad independientes. La pregunta exige Sí o No sin preselección. Ambas respuestas dan acceso y se guardan con fecha, hora y versión `2026-11-04.v3`. El Sí autoriza contacto educativo e invitar/agregar a la futura comunidad; No no autoriza ese uso. El formulario no agrega ahora a grupos.
+
+Hoja privada creada en Google Drive, carpeta `ChatGPT`: `1WcOkIwp4gnv452aHJzYPCVKX0tQkRVqM8d_cyazx2QE`. No hay registros reales ni integración activa todavía. Sigue `docs/APPS-SCRIPT.md` para desplegar el receptor desde tu cuenta y entregar su URL `/exec`.
 
 ## Dirección de la organización
 
