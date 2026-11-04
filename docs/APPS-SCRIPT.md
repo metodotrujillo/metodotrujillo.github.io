@@ -1,8 +1,8 @@
 # Activar los registros en Google Sheets
 
-La hoja ya está creada, es privada y contiene la pestaña `Leads` con sus quince encabezados, primera fila inmovilizada y filtro. Ubicación: carpeta `ChatGPT` de Google Drive.
+La hoja ya está creada, es privada y contiene la pestaña `Leads` con sus quince encabezados, primera fila inmovilizada y filtro. Destino actualizado a la copia facilitada por el propietario desde su cuenta personal.
 
-[Abre la hoja de registros](https://docs.google.com/spreadsheets/d/1WcOkIwp4gnv452aHJzYPCVKX0tQkRVqM8d_cyazx2QE/edit)
+[Abre la hoja de registros](https://docs.google.com/spreadsheets/d/10RUluozJGMZilFV7kVRkyaBVs-dmDcEECbVn2wRjCv4/edit)
 
 El formulario ya tiene el responsable Edwin Velaquez, Medellín, y el correo facilitado por el propietario. Está pendiente desplegar la aplicación web en su cuenta y pegar su URL en la configuración. **La hoja creada todavía no recibe registros de la web.**
 
