@@ -30,3 +30,13 @@ Guardar cambios en el editor no actualiza `/exec`. Usa **Implementar → Gestion
 Restringe la hoja al responsable y personal autorizado, activa la protección de tu cuenta y define eliminación, revisión anual y atención de consultas/reclamos. Evalúa con tu abogado los términos de Google como encargado y la transmisión internacional. El borrador no sustituye esa revisión.
 
 Fuentes técnicas: [Aplicaciones web](https://developers.google.com/apps-script/guides/web), [ContentService y JSONP](https://developers.google.com/apps-script/guides/content).
+
+## Registro simple y futura comunidad
+
+El formulario pide nombre, correo y celular. La autorización para registrar el acceso es independiente de la invitación opcional a recibir educación financiera y novedades de la futura comunidad. Ambas casillas empiezan sin marcar. No necesitas tener un grupo de WhatsApp para activar el registro.
+
+Las nuevas columnas al final de `Leads` son `interes_comunidad` (`si` o `no`) y `fecha_hora_interes_comunidad` (fecha de autorización si eligió `si`; vacía si eligió `no`). No marcar la opción permite igualmente usar las cuatro calculadoras. Filtra por `si` antes de contactar para contenidos o comunidad; el registro solo no autoriza esas comunicaciones.
+
+La versión de esta autorización es `2026-11-04.v2`. Al actualizar una instalación anterior, publica una nueva versión de Apps Script además del frontend. El script amplía los encabezados de una hoja generada previamente sin mover sus primeras trece columnas. Conserva los registros y autorizaciones anteriores con su propia versión.
+
+Para descargar tu lista como Excel: abre la hoja y usa **Archivo → Descargar → Microsoft Excel (.xlsx)**. Google Sheets es el registro activo; el archivo descargado es una copia del momento.

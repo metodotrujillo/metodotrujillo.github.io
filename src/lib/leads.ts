@@ -3,7 +3,7 @@ import { readStore, writeStore, removeStore } from './storage';
 export const PENDING_KEY='trujillo.pending.v1';
 const ATTRIBUTION_KEY='trujillo.attribution.v1';
 export type Attribution={utm_source:string;utm_medium:string;utm_campaign:string;src:string;entryCalculator:string};
-export type Lead={id:string;name:string;email:string;whatsapp:string;consent:'si';policyVersion:string;consentedAt:string;startedAt:number;submittedAt:number;website:string;attribution:Attribution};
+export type Lead={id:string;name:string;email:string;whatsapp:string;consent:'si';communityInterest:'si'|'no';policyVersion:string;consentedAt:string;startedAt:number;submittedAt:number;website:string;attribution:Attribution};
 export function validateContact(name:string,email:string,phone:string,consent:boolean){
   return {name:name.trim().length<2||name.trim().length>80?'Escribe tu nombre (2 a 80 caracteres).':'',email:!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/).test(email.trim())||email.length>254?'Revisa tu correo electrónico.':'',whatsapp:!(/^3\d{9}$/).test(phone)?'Usa 10 dígitos, empezando por 3.':'',consent:!consent?'Necesitamos tu autorización para registrar tus datos.':''};
 }
@@ -39,7 +39,7 @@ export function confirmReceipt(id:string):Promise<boolean>{
 }
 export async function submitLead(lead:Lead, transport:{post:(url:string,options:RequestInit)=>Promise<unknown>;confirm:(id:string)=>Promise<boolean>}={post:fetch,confirm:confirmReceipt}):Promise<void>{
   if(!site.appsScriptUrl)throw new Error('El registro aún no está habilitado.');
-  const body=new URLSearchParams({id:lead.id,name:lead.name,email:lead.email,whatsapp:lead.whatsapp,consent:lead.consent,policyVersion:lead.policyVersion,consentedAt:lead.consentedAt,startedAt:String(lead.startedAt),submittedAt:String(lead.submittedAt),website:lead.website,...lead.attribution});
+  const body=new URLSearchParams({id:lead.id,name:lead.name,email:lead.email,whatsapp:lead.whatsapp,consent:lead.consent,communityInterest:lead.communityInterest,policyVersion:lead.policyVersion,consentedAt:lead.consentedAt,startedAt:String(lead.startedAt),submittedAt:String(lead.submittedAt),website:lead.website,...lead.attribution});
   await transport.post(site.appsScriptUrl,{method:'POST',mode:'no-cors',credentials:'omit',body,signal:AbortSignal.timeout(15000)});
   if(!await transport.confirm(lead.id))throw new Error('El registro aún no confirmó tus datos.');
 }

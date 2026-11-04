@@ -3,7 +3,7 @@ export const site = {
   appsScriptUrl: '', // URL https://script.google.com/macros/s/…/exec
   whatsappCommunityUrl: '',
   leadCaptureEnabled: false, // Activar después de completar los datos y desplegar Apps Script.
-  policyVersion: '2026-11-04.v1',
+  policyVersion: '2026-11-04.v2',
   policyDate: '4 de noviembre de 2026',
   responsible: { name: '[PENDIENTE: nombre del responsable]', city: '[PENDIENTE: ciudad]', email: '[PENDIENTE: correo de contacto]' },
   social: { instagram: '', tiktok: '', youtube: '', facebook: '' },

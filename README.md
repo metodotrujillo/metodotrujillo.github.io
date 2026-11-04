@@ -91,3 +91,7 @@ Las fases tienen commits independientes. [docs/PLAN.md](docs/PLAN.md) contiene e
 ## Revisión antes de activar registros
 
 Completar responsable y URLs; revisar el texto marcado `REVISAR CON ABOGADO`; desplegar y probar Apps Script con datos propios de prueba; comprobar recepción de consentimiento, atribución y deduplicación; comprobar el botón de comunidad y atención de solicitudes. La captura queda apagada hasta entonces.
+
+## Registro y comunidad (actualización)
+
+Se separó el registro de acceso de la invitación opcional: «Quiero aprender a manejar mejor mi dinero». El interés y su fecha quedan en dos columnas adicionales de Sheets, aun sin grupo de WhatsApp. El acceso funciona igual si la persona responde no. Política y script usan la versión `2026-11-04.v2`. La integración real sigue pendiente de la URL de Apps Script y de los datos del responsable; no se ha creado ni conectado una hoja.

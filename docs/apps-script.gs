@@ -2,9 +2,9 @@
  * Completar Script Properties: SHEET_ID. No hacer pública la hoja.
  * REVISAR CON ABOGADO: datos del responsable, política y condiciones de Google.
  */
-const POLICY_VERSION = '2026-11-04.v1';
+const POLICY_VERSION = '2026-11-04.v2';
 const SHEET_NAME = 'Leads';
-const HEADERS = ['id', 'fecha_servidor', 'nombre', 'correo', 'whatsapp', 'autorizacion', 'version_politica', 'fecha_hora_autorizacion', 'utm_source', 'utm_medium', 'utm_campaign', 'src', 'calculadora_entrada'];
+const HEADERS = ['id', 'fecha_servidor', 'nombre', 'correo', 'whatsapp', 'autorizacion', 'version_politica', 'fecha_hora_autorizacion', 'utm_source', 'utm_medium', 'utm_campaign', 'src', 'calculadora_entrada', 'interes_comunidad', 'fecha_hora_interes_comunidad'];
 
 function sheet_() {
   const id = PropertiesService.getScriptProperties().getProperty('SHEET_ID');
@@ -13,6 +13,7 @@ function sheet_() {
   let sheet = book.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = book.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) { sheet.appendRow(HEADERS); sheet.setFrozenRows(1); }
+  else if (sheet.getLastColumn() < HEADERS.length) { sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]); }
   return sheet;
 }
 function initialize() { sheet_(); } // Ejecutar una vez para autorizar y preparar la hoja.
@@ -32,6 +33,7 @@ function validate_(p) {
     && String(p.name || '').trim().length >= 2 && String(p.name || '').length <= 80
     && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(p.email || '')) && String(p.email).length <= 254
     && /^\+573\d{9}$/.test(String(p.whatsapp || ''))
+    && ['si','no'].indexOf(p.communityInterest) !== -1
     && Number.isFinite(start) && Number.isFinite(end) && end-start >= 3000
     && end <= now+300000 && now-end <= 86400000
     && Number.isFinite(Date.parse(p.consentedAt)) && Math.abs(Date.parse(p.consentedAt)-end) < 10000
@@ -49,7 +51,7 @@ function doPost(e) {
     const key = Utilities.base64EncodeWebSafe(digest);
     const cache = CacheService.getScriptCache();
     if (cache.get('rate_'+key)) return json_({ok:false});
-    sheet.appendRow([p.id, new Date().toISOString(), safe_(String(p.name).trim(),80), safe_(String(p.email).toLowerCase(),254), safe_(p.whatsapp,13), 'si', POLICY_VERSION, safe_(p.consentedAt,40), safe_(p.utm_source), safe_(p.utm_medium), safe_(p.utm_campaign), safe_(p.src,10), safe_(p.entryCalculator,30)]);
+    sheet.appendRow([p.id, new Date().toISOString(), safe_(String(p.name).trim(),80), safe_(String(p.email).toLowerCase(),254), safe_(p.whatsapp,13), 'si', POLICY_VERSION, safe_(p.consentedAt,40), safe_(p.utm_source), safe_(p.utm_medium), safe_(p.utm_campaign), safe_(p.src,10), safe_(p.entryCalculator,30), p.communityInterest, p.communityInterest === 'si' ? safe_(p.consentedAt,40) : '']);
     SpreadsheetApp.flush();
     cache.put('rate_'+key, '1', 60);
     return json_({ok:true});
