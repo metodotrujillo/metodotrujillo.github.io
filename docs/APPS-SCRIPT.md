@@ -1,8 +1,8 @@
 # Activar los registros en Google Sheets
 
-La hoja ya está creada, es privada y contiene la pestaña `Leads` con sus quince encabezados, primera fila inmovilizada y filtro. Destino actualizado a la copia facilitada por el propietario desde su cuenta personal.
+La hoja ya está creada, es privada y contiene la pestaña `Leads` con sus quince encabezados, primera fila inmovilizada y filtro. Creada desde cero en el navegador con la cuenta personal velasquezgiraldoedwin@gmail.com; no reutiliza las hojas anteriores.
 
-[Abre la hoja de registros](https://docs.google.com/spreadsheets/d/10RUluozJGMZilFV7kVRkyaBVs-dmDcEECbVn2wRjCv4/edit)
+[Abre la hoja de registros](https://docs.google.com/spreadsheets/d/1WGtI5Q_5fa1wenhkwF2z4BYioEnv6AZhkV8RFYlD1xk/edit)
 
 El formulario ya tiene el responsable Edwin Velaquez, Medellín, y el correo facilitado por el propietario. Está pendiente desplegar la aplicación web en su cuenta y pegar su URL en la configuración. **La hoja creada todavía no recibe registros de la web.**
 

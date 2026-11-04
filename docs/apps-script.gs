@@ -5,7 +5,7 @@
  */
 const POLICY_VERSION = '2026-11-04.v3';
 const SHEET_NAME = 'Leads';
-const DEFAULT_SHEET_ID = '10RUluozJGMZilFV7kVRkyaBVs-dmDcEECbVn2wRjCv4';
+const DEFAULT_SHEET_ID = '1WGtI5Q_5fa1wenhkwF2z4BYioEnv6AZhkV8RFYlD1xk';
 const HEADERS = ['id', 'fecha_servidor', 'nombre', 'correo', 'whatsapp', 'autorizacion', 'version_politica', 'fecha_hora_autorizacion', 'utm_source', 'utm_medium', 'utm_campaign', 'src', 'calculadora_entrada', 'interes_comunidad', 'fecha_hora_respuesta_comunidad'];
 
 function sheet_() {

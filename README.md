@@ -96,7 +96,7 @@ Completar responsable y URLs; revisar el texto marcado `REVISAR CON ABOGADO`; de
 
 Nombre, correo y celular obligatorios; autorización de datos de acceso y pregunta de comunidad independientes. La pregunta exige Sí o No sin preselección. Ambas respuestas dan acceso y se guardan con fecha, hora y versión `2026-11-04.v3`. El Sí autoriza contacto educativo e invitar/agregar a la futura comunidad; No no autoriza ese uso. El formulario no agrega ahora a grupos.
 
-Hoja de destino actualizada a la copia facilitada por el propietario: `10RUluozJGMZilFV7kVRkyaBVs-dmDcEECbVn2wRjCv4`. No hay registros reales ni integración activa todavía. Sigue `docs/APPS-SCRIPT.md` para desplegar el receptor desde tu cuenta y entregar su URL `/exec`.
+Hoja nueva creada desde cero en el navegador de la cuenta personal verificada: `1WGtI5Q_5fa1wenhkwF2z4BYioEnv6AZhkV8RFYlD1xk`. No hay registros reales ni integración activa todavía. Sigue `docs/APPS-SCRIPT.md` para desplegar el receptor desde tu cuenta y entregar su URL `/exec`.
 
 ## Dirección de la organización
 
